@@ -71,11 +71,12 @@ public class Actions {
                 currentBalance = Integer.parseInt(
                         String.valueOf(rs.getInt("balance")));
             }
+
             newBalance = currentBalance + amountSet;
             String sql3 = "UPDATE accounts SET balance =" + newBalance + " WHERE accountid=" + accountIdSet;
             statement.executeUpdate(sql3);
+            System.out.println("Аккаунт пополнен на "+amountSet);
 
-                System.out.println("Аккаунт id=" + accountIdSet + " пополнен");
             } catch (Exception e) {
                 System.out.println("Ошибка пополнения аккаунта,проверьте правильность данных");
             }
