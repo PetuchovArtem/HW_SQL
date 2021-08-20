@@ -36,4 +36,19 @@ public class Validator {
 
         return result;
     }
+
+
+    public boolean validatePlatezh(int summa){
+        boolean result = true;
+        if (summa > 100_000_000){
+            result =false;
+            return result;
+        }
+        else{
+            return result;
+        }
+
+
+    }
+
 }

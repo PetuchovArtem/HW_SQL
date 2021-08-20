@@ -111,5 +111,33 @@ public class Actions {
 
     }
 
+    public void getId() {
+
+        int maxId=0;
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Oshibka drivera");
+        }
+
+        try (Connection connect = DriverManager.getConnection(URL, LOGIN, PASS);
+             Statement statement = connect.createStatement();) {
+            try {
+                String sql = "SELECT MAX(transactinid) FROM transactions" ;
+                ResultSet request2 = statement.executeQuery(sql);
+
+                while (request2.next()) {
+                    maxId =  request2.ge  ("transactinid");  --- надо взять id
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка получения балланса аккаунта,проверьте правильность данных");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+    }
+
+
 
 }
