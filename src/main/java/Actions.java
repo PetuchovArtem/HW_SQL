@@ -75,7 +75,12 @@ public class Actions {
             newBalance = currentBalance + amountSet;
             String sql3 = "UPDATE accounts SET balance =" + newBalance + " WHERE accountid=" + accountIdSet;
             statement.executeUpdate(sql3);
-            System.out.println("Аккаунт пополнен на "+amountSet);
+            if(amountSet>0){
+                System.out.println("Аккаунт пополнен на "+amountSet);
+            }
+            else{
+                System.out.println("С аккаунта снято "+amountSet);
+            }
 
             } catch (Exception e) {
                 System.out.println("Ошибка пополнения аккаунта,проверьте правильность данных");
@@ -110,34 +115,6 @@ public class Actions {
         }
 
     }
-
-    public void getId() {
-
-        int maxId=0;
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e) {
-            System.out.println("Oshibka drivera");
-        }
-
-        try (Connection connect = DriverManager.getConnection(URL, LOGIN, PASS);
-             Statement statement = connect.createStatement();) {
-            try {
-                String sql = "SELECT MAX(transactinid) FROM transactions" ;
-                ResultSet request2 = statement.executeQuery(sql);
-
-                while (request2.next()) {
-                    maxId =  request2.ge  ("transactinid");  --- надо взять id
-                }
-            } catch (Exception e) {
-                System.out.println("Ошибка получения балланса аккаунта,проверьте правильность данных");
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-    }
-
 
 
 }

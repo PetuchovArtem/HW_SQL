@@ -38,6 +38,41 @@ public class Validator {
     }
 
 
+    public boolean validateBalance(double summa, int accountIdSet){
+
+        boolean result = true;
+        double checkBalance=0;
+
+        try {
+            Class.forName("org.postgresql.Driver");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Oshibka drivera");
+        }
+
+        try (Connection connect = DriverManager.getConnection(URL, LOGIN, PASS);
+             Statement statement = connect.createStatement();) {
+            try {
+                String sql = "SELECT AVG(balance) AS BALANCE FROM accounts WHERE accountid=" + accountIdSet;
+                ResultSet request2 = statement.executeQuery(sql);
+
+                while (request2.next()) {
+                    checkBalance= request2.getDouble("BALANCE");
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка валидации балланса аккаунта,проверьте правильность данных");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        if (checkBalance+summa>2_000_000_000 || checkBalance+summa<0){
+            result = false;
+        }
+        return result;
+    }
+
+
+
     public boolean validatePlatezh(int summa){
         boolean result = true;
         if (summa > 100_000_000){
