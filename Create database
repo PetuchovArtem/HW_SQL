@@ -1,0 +1,25 @@
+CREATE TABLE Accounts( 
+ accountId integer NOT NULL, 
+ userId integer NOT NULL, 
+ balance integer NOT NULL, 
+ currency varchar (10) NOT NULL, 
+ PRIMARY KEY(accountId), 
+ FOREIGN KEY (accountId) REFERENCES Transactions(accountId) 
+ ) 
+  
+CREATE TABLE Transactions( 
+ transactinId integer NOT NULL, 
+ accountId integer NOT NULL, 
+ amount integer NOT NULL, 
+ PRIMARY KEY(transactinId), 
+ FOREIGN KEY (accountId) REFERENCES Accounts(accountId) 
+)   
+ 
+ 
+CREATE TABLE Users( 
+  userId integer NOT NULL, 
+  name varchar (50) NOT NULL, 
+     address varchar (255) NOT NULL, 
+  PRIMARY KEY(userId), 
+  FOREIGN KEY (userId) REFERENCES Accounts(userid) 
+);
